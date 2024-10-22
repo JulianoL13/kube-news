@@ -26,5 +26,17 @@ jobs:
         tags: |
           laranjeirajuliano/live-kube-news:${{github.run_number}}
           laranjeirajuliano/live-kube-news:latest
+
+  CD:
+    runs-on: ubuntu-latest
+    needs: [CI]
+    steps:
+      - uses: actions/checkout@v4.2.1
+
+      - name: Definindo o context
+        uses: Azure/k8s-set-context@v3.0
+        with: 
+          method: kubeconfig
+          kubeconfig: ${{secrets.K8S_CONFIG}}
     
     
